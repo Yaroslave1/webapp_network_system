@@ -1,11 +1,11 @@
 package com.example.webapp_network_system.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
 
 @Getter
 @Setter
@@ -15,6 +15,8 @@ import lombok.Setter;
 @Table(name = "device")
 
 public class Device {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String deviceType;
     private String model;
@@ -22,6 +24,7 @@ public class Device {
     private String ipAddress;
     private String macAddress;
     private String status;
-    private Long locationId;
+    @ManyToOne
+    @JoinColumn(name = "location_id")
     private Location location;
 }
