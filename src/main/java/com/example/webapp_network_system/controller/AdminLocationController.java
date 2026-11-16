@@ -20,10 +20,15 @@ public class AdminLocationController {
         model.addAttribute("location", new Location());
         return "admin/locations";
     }
-    @PostMapping("/create")
+    @GetMapping("/add")
     public String saveLocation(@ModelAttribute Location location) {
         locationRepository.save(location);
         return "redirect:/admin/locations";
+    }
+    @GetMapping("/edit/{id}")
+    public String showEditForm(@PathVariable Long id, Model model) {
+        model.addAttribute("locations", locationRepository.getById(id));
+        return "redirect:admin/locations";
     }
     @PostMapping("/delete/{id}")
     public String deleteLocation(@PathVariable Long id) {

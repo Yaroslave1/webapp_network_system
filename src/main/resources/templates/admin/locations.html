@@ -7,36 +7,9 @@
 <body>
 <h2>Управление локациями</h2>
 
-<!-- Форма добавления или редактирования -->
-<h3 th:text="${location.id != null ? 'Редактировать локацию' : 'Добавить новую локацию'}">Форма</h3>
+<p><a th:href="@{/admin/locations/add}">+ Добавить новую локацию</a></p>
+<p><a th:href="@{/admin/devices}">← Перейти к устройствам</a></p>
 
-<form th:action="@{/admin/locations/save}" method="post">
-  <!-- Скрытое поле для ID (нужно при редактировании) -->
-  <input type="hidden" name="id" th:value="${location.id}">
-
-  <div>
-    <label>Название: </label>
-    <input type="text" name="name" th:value="${location.name}" required>
-  </div>
-  <div>
-    <label>Адрес: </label>
-    <input type="text" name="address" th:value="${location.address}">
-  </div>
-  <div>
-    <label>Описание: </label>
-    <input type="text" name="description" th:value="${location.description}">
-  </div>
-
-  <button type="submit">Сохранить</button>
-
-  <!-- Ссылка для отмены редактирования -->
-  <a th:if="${location.id != null}" th:href="@{/admin/locations}">Отмена</a>
-</form>
-
-<hr>
-
-<!-- Таблица со списком всех локаций -->
-<h3>Список локаций</h3>
 <table border="1">
   <thead>
   <tr>
