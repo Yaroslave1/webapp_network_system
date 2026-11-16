@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Управление устройствами</title>
+</head>
+<body>
+<h2>Сетевые устройства</h2>
+
+<p><a th:href="@{/admin/devices/add}">+ Добавить новое устройство</a></p>
+<p><a th:href="@{/admin/locations}">← Перейти к локациям</a></p>
+
+<table border="1">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Тип</th>
+    <th>Модель</th>
+    <th>Серийный номер</th>
+    <th>IP</th>
+    <th>Статус</th>
+    <th>Локация</th>
+    <th>Действия</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="d : ${devices}">
+    <td th:text="${d.id}"></td>
+    <td th:text="${d.deviceType}"></td>
+    <td th:text="${d.model}"></td>
+    <td th:text="${d.serialNumber}"></td>
+    <td th:text="${d.ipAddress}"></td>
+    <td th:text="${d.status}"></td>
+    <!-- Проверка на null: если у устройства нет локации, выводим прочерк -->
+    <td th:text="${d.location != null ? d.location.name : '—'}"></td>
+    <td>
+      <a th:href="@{/admin/devices/edit/{id}(id=${d.id})}">Редактировать</a>
+
+      <form th:action="@{/admin/devices/delete/{id}(id=${d.id})}" method="post" style="display:inline;">
+        <button type="submit" onclick="return confirm('Удалить устройство?')">Удалить</button>
+      </form>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

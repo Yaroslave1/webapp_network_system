@@ -17,18 +17,23 @@ public class AdminLocationController {
     @GetMapping
     public String Locations(Model model) {
         model.addAttribute("locations", locationRepository.findAll());
-        model.addAttribute("location", new Location());
         return "admin/locations";
     }
     @GetMapping("/add")
-    public String saveLocation(@ModelAttribute Location location) {
-        locationRepository.save(location);
-        return "redirect:/admin/locations";
+    public String showAddForm(Model model) {
+        model.addAttribute("location", new Location());
+        return "admin/locations-form";
     }
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
-        model.addAttribute("locations", locationRepository.getById(id));
-        return "redirect:admin/locations";
+        Location location = locationRepository.findById(id).orElseThrow(null);
+        model.addAttribute("location", location);
+        return "admin/locations-form";
+    }
+    @PostMapping("/save")
+    public String saveLocation(@ModelAttribute Location location) {
+        locationRepository.save(location);
+        return "redirect:/admin/locations";
     }
     @PostMapping("/delete/{id}")
     public String deleteLocation(@PathVariable Long id) {

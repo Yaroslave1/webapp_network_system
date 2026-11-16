@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${location.id != null ? 'Редактировать локацию' : 'Новая локация'}">Форма</title>
+</head>
+<body>
+<h2 th:text="${location.id != null ? 'Редактировать локацию' : 'Добавить новую локацию'}">Форма</h2>
+
+<!-- Ссылка назад к списку -->
+<p><a th:href="@{/admin/locations}">← Назад к списку локаций</a></p>
+
+<form th:action="@{/admin/locations/save}" method="post">
+    <!-- Скрытое поле для ID (нужно при редактировании) -->
+    <input type="hidden" name="id" th:if="${location.id != null}" th:value="${location.id}">
+
+    <div>
+        <label>Название: </label>
+        <input type="text" name="name" th:value="${location.name}" required>
+    </div>
+    <div>
+        <label>Адрес: </label>
+        <input type="text" name="address" th:value="${location.address}">
+    </div>
+    <div>
+        <label>Описание: </label>
+        <input type="text" name="description" th:value="${location.description}">
+    </div>
+
+    <button type="submit">Сохранить</button>
+</form>
+</body>
+</html>

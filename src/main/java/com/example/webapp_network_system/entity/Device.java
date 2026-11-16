@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "device")
+@Table(name = "devices")
 
 public class Device {
     @Id
@@ -24,6 +24,7 @@ public class Device {
     private String ipAddress;
     private String macAddress;
     private String status;
+    private String notes;
     @ManyToOne
     @JoinColumn(name = "location_id")
     private Location location;

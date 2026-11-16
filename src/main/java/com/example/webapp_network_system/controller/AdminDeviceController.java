@@ -6,10 +6,7 @@ import com.example.webapp_network_system.service.DeviceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/admin/devices")
@@ -33,6 +30,11 @@ public class AdminDeviceController {
         model.addAttribute("device", deviceService.getDeviceByID(id));
         model.addAttribute("locations", locationRepository.findAll());
         return "admin/device-form";
+    }
+    @PostMapping("/save")
+    public String saveDevice(@ModelAttribute Device device) {
+        deviceService.saveDevice(device);
+        return "redirect:/admin/devices";
     }
     @PostMapping("/delete/{id}")
     public String deleteDevice(@PathVariable Long id) {

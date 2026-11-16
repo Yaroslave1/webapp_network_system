@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="${device.id != null ? 'Редактировать устройство' : 'Новое устройство'}">Форма</title>
+</head>
+<body>
+<h2 th:text="${device.id != null ? 'Редактировать устройство' : 'Добавить устройство'}">Форма</h2>
+<p><a th:href="@{/admin/devices}">← Назад к списку</a></p>
+
+<!-- Блок для вывода ошибки (например, дубликат серийного номера) -->
+<div th:if="${error}" style="color: red; font-weight: bold;">
+  <p th:text="${error}"></p>
+</div>
+
+<form th:action="@{/admin/devices/save}" method="post">
+  <!-- Скрытый ID для обновления -->
+  <input type="hidden" name="id" th:if="${device.id != null}" th:value="${device.id}">
+
+  <div>
+    <label>Тип устройства: </label>
+    <select name="deviceType">
+      <option value="Маршрутизатор" th:selected="${device.deviceType == 'Маршрутизатор'}">Маршрутизатор</option>
+      <option value="Коммутатор" th:selected="${device.deviceType == 'Коммутатор'}">Коммутатор</option>
+      <option value="Межсетевой экран" th:selected="${device.deviceType == 'Межсетевой экран'}">Межсетевой экран</option>
+    </select>
+  </div>
+  <div>
+    <label>Модель: </label>
+    <input type="text" name="model" th:value="${device.model}" required>
+  </div>
+  <div>
+    <label>Серийный номер: </label>
+    <input type="text" name="serialNumber" th:value="${device.serialNumber}" required>
+  </div>
+  <div>
+    <label>IP-адрес: </label>
+    <input type="text" name="ipAddress" th:value="${device.ipAddress}">
+  </div>
+  <div>
+    <label>MAC-адрес: </label>
+    <input type="text" name="macAddress" th:value="${device.macAddress}">
+  </div>
+  <div>
+    <label>Статус: </label>
+    <select name="status">
+      <option value="Активен" th:selected="${device.status == 'Активен'}">Активен</option>
+      <option value="Неактивен" th:selected="${device.status == 'Неактивен'}">Неактивен</option>
+      <option value="Обслуживание" th:selected="${device.status == 'Обслуживание'}">Обслуживание</option>
+    </select>
+  </div>
+  <div>
+    <label>Расположение (Локация): </label>
+    <!-- ВАЖНО: name="location.id" - Spring сам поймет, что нужно создать объект Location с этим ID -->
+    <select name="location.id">
+      <option value="">-- Не выбрано --</option>
+      <option th:each="loc : ${locations}"
+              th:value="${loc.id}"
+              th:text="${loc.name}"
+              th:selected="${device.location != null && device.location.id == loc.id}">
+      </option>
+    </select>
+  </div>
+  <div>
+    <label>Заметки: </label>
+    <input type="text" name="notes" th:value="${device.notes}">
+  </div>
+
+  <button type="submit">Сохранить</button>
+</form>
+</body>
+</html>
