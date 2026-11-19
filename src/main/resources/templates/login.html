@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Вход в систему - Network System</title>
+    <!-- Подключаем Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Подключаем наш кастомный CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body style="background-color: #f4f6f9;">
+
+<div class="login-container">
+    <h2>Вход в систему</h2>
+
+    <div th:if="${param.error}" class="error">
+        Неверный логин или пароль
+    </div>
+
+    <div th:if="${param.logout}" class="success">
+        Вы успешно вышли из системы
+    </div>
+
+    <div th:if="${error}" class="error" th:text="${error}"></div>
+
+    <form th:action="@{/login}" method="post">
+        <div class="mb-3">
+            <label for="username" class="form-label" style="text-align: left; display: block;">Логин:</label>
+            <input type="text" id="username" name="username" class="form-control" required autofocus placeholder="Введите логин">
+        </div>
+
+        <div class="mb-3">
+            <label for="password" class="form-label" style="text-align: left; display: block;">Пароль:</label>
+            <input type="password" id="password" name="password" class="form-control" required placeholder="Введите пароль">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Войти</button>
+    </form>
+
+    <div style="margin-top: 20px; font-size: 0.85rem; color: #718096; border-top: 1px solid #e2e8f0; padding-top: 15px;">
+        <p style="margin-bottom: 5px;">Тестовые аккаунты:</p>
+        <p style="margin-bottom: 0;"><strong>Админ:</strong> admin / admin123</p>
+        <p><strong>Клиент:</strong> client / client123</p>
+    </div>
+</div>
+
+</body>
+</html>
