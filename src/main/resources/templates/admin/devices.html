@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" th:href="@{/css/style.css}">
 <head>
   <meta charset="UTF-8">
   <title>Управление устройствами</title>
 </head>
 <body>
+<div class="container">
 <h2>Сетевые устройства</h2>
 
-<p><a th:href="@{/admin/devices/add}">+ Добавить новое устройство</a></p>
-<p><a th:href="@{/admin/locations}">← Перейти к локациям</a></p>
-
+<p>
+<a th:href="@{/admin/devices/add}" class="btn">+ Добавить новое устройство</a>
+<a th:href="@{/admin/locations}" class="btn btn-secondary">← Перейти к локациям</a>
+</p>
 <table border="1">
   <thead>
   <tr>
@@ -34,14 +37,15 @@
     <!-- Проверка на null: если у устройства нет локации, выводим прочерк -->
     <td th:text="${d.location != null ? d.location.name : '—'}"></td>
     <td>
-      <a th:href="@{/admin/devices/edit/{id}(id=${d.id})}">Редактировать</a>
+      <a th:href="@{/admin/devices/edit/{id}(id=${d.id})}" class="btn">Редактировать</a>
 
       <form th:action="@{/admin/devices/delete/{id}(id=${d.id})}" method="post" style="display:inline;">
-        <button type="submit" onclick="return confirm('Удалить устройство?')">Удалить</button>
+        <button type="submit" class="btn btn-danger" onclick="return confirm('Удалить?')">Удалить</button>
       </form>
     </td>
   </tr>
   </tbody>
 </table>
+</div>
 </body>
 </html>

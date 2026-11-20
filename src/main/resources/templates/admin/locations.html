@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" th:href="@{/css/style.css}">
 <head>
     <meta charset="UTF-8">
     <title>Список локаций</title>
 </head>
 <body>
+<div class="container">
 <h2>Управление локациями</h2>
 
-<p><a th:href="@{/admin/locations/add}">+ Добавить новую локацию</a></p>
-<p><a th:href="@{/admin/devices}">← Перейти к устройствам</a></p>
+<p>
+  <a th:href="@{/admin/locations/add}" class="btn">+ Добавить новую локацию</a>
+  <a th:href="@{/admin/devices}" class="btn btn-secondary">← Перейти к устройствам</a>
+</p>
 
 <table border="1">
   <thead>
@@ -28,14 +32,15 @@
     <td th:text="${loc.address}"></td>
     <td th:text="${loc.description}"></td>
     <td>
-      <a th:href="@{/admin/locations/edit/{id}(id=${loc.id})}">Редактировать</a>
+      <a th:href="@{/admin/locations/edit/{id}(id=${loc.id})}" class="btn">Редактировать</a>
 
       <form th:action="@{/admin/locations/delete/{id}(id=${loc.id})}" method="post" style="display:inline;">
-        <button type="submit" onclick="return confirm('Удалить локацию?')">Удалить</button>
+        <button type="submit" class="btn btn-danger" onclick="return confirm('Удалить локацию?')">Удалить</button>
       </form>
     </td>
   </tr>
   </tbody>
 </table>
+</div>
 </body>
 </html>

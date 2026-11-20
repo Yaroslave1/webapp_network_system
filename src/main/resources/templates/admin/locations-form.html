@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" th:href="@{/css/style.css}">
 <head>
     <meta charset="UTF-8">
     <title th:text="${location.id != null ? 'Редактировать локацию' : 'Новая локация'}">Форма</title>
@@ -8,7 +9,7 @@
 <h2 th:text="${location.id != null ? 'Редактировать локацию' : 'Добавить новую локацию'}">Форма</h2>
 
 <!-- Ссылка назад к списку -->
-<p><a th:href="@{/admin/locations}">← Назад к списку локаций</a></p>
+<p><a th:href="@{/admin/locations}" class="btn btn-secondary">← Вернуться к списку локаций</a></p>
 
 <form th:action="@{/admin/locations/save}" method="post">
     <!-- Скрытое поле для ID (нужно при редактировании) -->

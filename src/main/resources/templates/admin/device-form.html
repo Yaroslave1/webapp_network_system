@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" th:href="@{/css/style.css}">
 <head>
   <meta charset="UTF-8">
   <title th:text="${device.id != null ? 'Редактировать устройство' : 'Новое устройство'}">Форма</title>
 </head>
 <body>
 <h2 th:text="${device.id != null ? 'Редактировать устройство' : 'Добавить устройство'}">Форма</h2>
-<p><a th:href="@{/admin/devices}">← Назад к списку</a></p>
+<p><a th:href="@{/admin/devices}" class="btn btn-secondary">Вернуться к списку</a></p>
 
-<!-- Блок для вывода ошибки (например, дубликат серийного номера) -->
 <div th:if="${error}" style="color: red; font-weight: bold;">
   <p th:text="${error}"></p>
 </div>
 
 <form th:action="@{/admin/devices/save}" method="post">
-  <!-- Скрытый ID для обновления -->
   <input type="hidden" name="id" th:if="${device.id != null}" th:value="${device.id}">
 
   <div>
@@ -51,7 +50,7 @@
   </div>
   <div>
     <label>Расположение (Локация): </label>
-    <!-- ВАЖНО: name="location.id" - Spring сам поймет, что нужно создать объект Location с этим ID -->
+
     <select name="location.id">
       <option value="">-- Не выбрано --</option>
       <option th:each="loc : ${locations}"
@@ -65,7 +64,9 @@
     <label>Заметки: </label>
     <input type="text" name="notes" th:value="${device.notes}">
   </div>
+<p>
 
+</p>
   <button type="submit">Сохранить</button>
 </form>
 </body>
