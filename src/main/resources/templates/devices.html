@@ -4,42 +4,41 @@
   <meta charset="UTF-8">
   <title>Сетевое оборудование</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
   <div class="container">
-    <!-- Логотип -->
-    <a class="navbar-brand" th:href="@{/devices}">Network System</a>
+    <a class="navbar-brand d-flex align-items-center" th:href="@{/devices}">
+      <i class="fa-solid fa-network-wired me-2"></i>NetSystem
+    </a>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarNav">
-      <!-- Левая часть: ссылки -->
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link active" th:href="@{/devices}">Устройства</a>
+          <a class="nav-link" th:href="@{/devices}"><i class="fa-solid fa-network-wired me-1"></i> Устройства</a>
         </li>
       </ul>
-
-      <!-- Правая часть: профиль и выход -->
-      <!-- d-flex и ms-auto прижимают этот блок к правому краю -->
-      <div class="d-flex align-items-center gap-3 ms-auto">
+      <div class="d-flex align-items-center gap-3">
                 <span class="text-light">
-                    Привет, <strong sec:authentication="name"></strong>!
+                    Привет, <strong sec:authentication="name">User</strong>!
                 </span>
         <form th:action="@{/logout}" method="post" class="m-0">
-          <button type="submit" class="btn btn-outline-light btn-sm">Выйти</button>
+          <button type="submit" class="btn btn-outline-light btn-sm">
+            <i class="fa-solid fa-right-from-bracket"></i> Выйти
+          </button>
         </form>
       </div>
     </div>
   </div>
 </nav>
 
-<!-- Основной контент -->
 <div class="container">
   <h2>Сетевое оборудование</h2>
 
@@ -53,7 +52,6 @@
       <th>IP</th>
       <th>Статус</th>
       <th>Локация</th>
-      <!-- Колонки "Действия" тут НЕТ -->
     </tr>
     </thead>
     <tbody>
@@ -63,7 +61,16 @@
       <td th:text="${d.model}"></td>
       <td th:text="${d.serialNumber}"></td>
       <td th:text="${d.ipAddress}"></td>
-      <td th:text="${d.status}"></td>
+      <td>
+        <span class="status-badge"
+              th:classappend="${d.status == 'Активен' or d.status == 'ACTIVE' ? 'status-active' :
+                           (d.status == 'Неактивен' or d.status == 'INACTIVE' ? 'status-inactive' :
+                           (d.status == 'Обслуживание' or d.status == 'MAINTENANCE' ? 'status-maintenance' : 'status-default'))}"
+              th:text="${d.status == 'ACTIVE' ? 'Активен' :
+                   (d.status == 'INACTIVE' ? 'Неактивен' :
+                   (d.status == 'MAINTENANCE' ? 'Обслуживание' : d.status))}">
+    </span>
+      </td>
       <td th:text="${d.location != null ? d.location.name : '—'}"></td>
     </tr>
     </tbody>
