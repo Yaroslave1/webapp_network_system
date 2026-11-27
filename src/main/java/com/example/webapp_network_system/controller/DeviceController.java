@@ -21,9 +21,9 @@ public class DeviceController {
                 .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
 
         if (isAdmin) {
-            return "admin/devices"; // Для админа
+            return "admin/devices";
         } else {
-            return "devices";       // Для клиента (ищет файл templates/devices.html)
+            return "devices";
         }
     }
 }
