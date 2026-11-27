@@ -1,0 +1,403 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+    background-attachment: fixed;
+    color: #334155;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #cbd5e1;
+}
+
+h3 {
+    font-size: 1.3rem;
+    color: #334155;
+    margin: 15px 0 10px;
+}
+
+.navbar.bg-dark {
+    background: linear-gradient(90deg, #1e3c72 0%, #2a5298 100%) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.nav-link {
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.container form {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+}
+
+label {
+    display: block;
+    margin: 12px 0 6px;
+    font-weight: 500;
+    color: #1e293b;
+    font-size: 0.95rem;
+}
+
+input[type="text"],
+input[type="password"],
+textarea,
+select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+    background: #f8fafc;
+    font-family: inherit;
+}
+
+input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: #3b82f6;
+    background: white;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+}
+
+.btn, button, input[type="submit"] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #3b82f6;
+    color: white !important;
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
+}
+
+.btn:hover, button:hover, input[type="submit"]:hover {
+    background: #2563eb;
+    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+    transform: translateY(-1px);
+}
+
+.btn:active, button:active {
+    transform: translateY(1px);
+    box-shadow: none;
+}
+
+.btn-danger {
+    background: #ef4444 !important;
+    box-shadow: 0 2px 4px rgba(239, 68, 68, 0.2) !important;
+}
+.btn-danger:hover {
+    background: #dc2626 !important;
+}
+
+.btn-secondary {
+    background: #64748b !important;
+    box-shadow: 0 2px 4px rgba(100, 116, 139, 0.2) !important;
+}
+.btn-secondary:hover {
+    background: #475569 !important;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 20px 0;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+}
+
+thead {
+    background: #1e293b;
+}
+
+th {
+    padding: 16px 15px;
+    text-align: left;
+    font-weight: 500;
+    color: #f8fafc;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: none;
+}
+
+td {
+    padding: 15px;
+    border-bottom: 1px solid #e2e8f0;
+    font-size: 0.95rem;
+    vertical-align: middle;
+    color: #334155;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+tbody tr {
+    transition: background-color 0.2s;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f8fafc;
+}
+
+tbody tr:hover {
+    background-color: #eff6ff;
+}
+
+table form {
+    background: transparent !important;
+    padding: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    display: inline-flex !important;
+    align-items: center;
+    margin: 0 !important;
+}
+
+table .btn, table button {
+    padding: 8px 14px;
+    font-size: 0.85rem;
+    margin: 0 !important;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    border-radius: 20px;
+    color: #fff !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-active { background-color: #10b981 !important; }
+.status-inactive { background-color: #ef4444 !important; }
+.status-maintenance { background-color: #f59e0b !important; }
+.status-default { background-color: #6b7280 !important; }
+
+.error, .alert-danger {
+    color: #b91c1c !important;
+    background: #fef2f2 !important;
+    border-left: 4px solid #ef4444 !important;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 15px 0;
+    font-weight: 500;
+}
+
+.success, .alert-success {
+    color: #047857 !important;
+    background: #ecfdf5 !important;
+    border-left: 4px solid #10b981 !important;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 15px 0;
+}
+
+.login-container {
+    max-width: 420px;
+    margin: 100px auto;
+    background: white;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    text-align: center;
+}
+
+.login-container h2 { border-bottom: none; }
+
+.form-page {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 24px 16px;
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #3b82f6;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.back-link:hover { text-decoration: underline; }
+
+.subtitle {
+    color: #64748b;
+    margin: 0 0 28px;
+    font-size: 0.95rem;
+}
+
+.location-form-wrapper {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+    padding: 32px;
+}
+
+.location-form-wrapper form {
+    background: transparent !important;
+    padding: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+}
+
+.form-group { margin-bottom: 22px; }
+
+.form-group label {
+    display: block;
+    margin: 0 0 8px;
+    font-weight: 600;
+    color: #1e293b;
+    font-size: 0.95rem;
+}
+
+.hint { color: #64748b; font-weight: 400; }
+
+.form-group input[type="text"],
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    background: #ffffff;
+    font-size: 1rem;
+    color: #1e293b;
+    font-family: inherit;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder { color: #94a3b8; }
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #3b82f6;
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.12);
+}
+
+.form-group textarea { resize: vertical; }
+
+
+.actions {
+    margin-top: 28px;
+    display: flex;
+    gap: 14px;
+}
+
+.actions .btn-action-primary,
+.actions .btn-action-secondary {
+    display: inline-block;
+    padding: 12px 30px;
+    border-radius: 10px;
+    border: none;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: none;
+    transition: background 0.2s;
+    transform: none;
+}
+
+.btn-action-primary {
+    background: #3b82f6 !important;
+    color: #ffffff !important;
+}
+.btn-action-primary:hover {
+    background: #2563eb !important;
+    transform: none;
+}
+
+.btn-action-secondary {
+    background: #64748b !important;
+    color: #ffffff !important;
+}
+.btn-action-secondary:hover {
+    background: #475569 !important;
+    transform: none;
+}
+
+.navbar form {
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    display: inline-block;
+}
+
+.navbar .btn-outline-light {
+    border: 1px solid rgba(255, 255, 255, 0.5) !important;
+    border-radius: 8px;
+}
+.navbar .btn-outline-light:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+}
+.navbar-brand {
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+}
+
+.navbar-brand i {
+    color: #60a5fa;
+    font-size: 1.6rem;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.navbar-brand:hover i {
+    transform: rotate(-15deg) scale(1.1);
+    color: #93c5fd;
+}
+
+.navbar-brand:hover {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+

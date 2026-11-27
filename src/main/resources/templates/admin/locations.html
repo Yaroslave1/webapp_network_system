@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <title>Управление локациями</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<!-- Навигационная панель -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" th:href="@{/devices}">
+      <i class="fa-solid fa-network-wired me-2"></i>NetSystem
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/devices}"><i class="fa-solid fa-network-wired me-1"></i> Устройства</a>
+        </li>
+        <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+          <a class="nav-link" th:href="@{/admin/locations}"><i class="fa-solid fa-server me-1"></i> Локации</a>
+        </li>
+        <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+          <a class="nav-link" th:href="@{/admin/users}"><i class="fa-solid fa-users me-1"></i> Пользователи</a>
+        </li>
+      </ul>
+      <div class="d-flex align-items-center gap-3">
+                <span class="text-light">
+                    Привет, <strong sec:authentication="name">User</strong>!
+                </span>
+        <form th:action="@{/logout}" method="post" class="m-0">
+          <button type="submit" class="btn btn-outline-light btn-sm">
+            <i class="fa-solid fa-right-from-bracket"></i> Выйти
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+  <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Управление локациями</h2>
+    <a th:href="@{/admin/locations/add}" class="btn">+ Добавить локацию</a>
+  </div>
+
+  <table>
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Название</th>
+      <th>Адрес</th>
+      <th>Описание</th>
+      <th>Действия</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="loc : ${locations}">
+      <td th:text="${loc.id}"></td>
+      <td th:text="${loc.name}"></td>
+      <td th:text="${loc.address}"></td>
+      <td th:text="${loc.description}"></td>
+      <td>
+        <a th:href="@{/admin/locations/edit/{id}(id=${loc.id})}" class="btn">Редактировать</a>
+        <form th:action="@{/admin/locations/delete/{id}(id=${loc.id})}" method="post" style="display:inline;">
+          <button type="submit" class="btn btn-danger" onclick="return confirm('Удалить локацию?')">Удалить</button>
+        </form>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>

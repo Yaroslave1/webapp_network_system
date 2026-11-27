@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title th:text="${device.id != null ? 'Редактировать устройство' : 'Новое устройство'}">Форма</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <style>
+    :root {
+        --primary: #2563eb;
+        --primary-dark: #1e40af;
+        --bg: #f1f5f9;
+        --card: #ffffff;
+        --text: #1e293b;
+        --muted: #64748b;
+        --border: #e2e8f0;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+        font-family:'Roboto', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        margin: 0;
+        padding: 40px 16px;
+        justify-content: center;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 520px;
+        margin: 0 auto;
+    }
+
+    h2 {
+        margin: 0 0 8px;
+        font-size: 1.6rem;
+    }
+
+    .subtitle {
+        color: var(--muted);
+        margin: 0 0 24px;
+        font-size: 0.95rem;
+    }
+
+    .back-link {
+        display: inline-block;
+        margin-bottom: 20px;
+        color: var(--primary);
+        text-decoration: none;
+        font-size: 0.95rem;
+    }
+
+    .back-link:hover { text-decoration: underline; }
+
+    .form-card {
+        background: var(--card);
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        padding: 28px;
+    }
+
+    .form-group { margin-bottom: 18px; }
+
+    label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: 600;
+        font-size: 0.9rem;
+    }
+
+    .hint {
+        color: var(--muted);
+        font-weight: 400;
+    }
+
+    input[type="text"] {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        font-size: 1rem;
+        background: #fff;
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    input[type="text"]:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+    .actions {
+        margin-top: 24px;
+        display: flex;
+        gap: 12px;
+    }
+
+    .btn {
+        padding: 11px 22px;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background 0.2s;
+    }
+
+    .btn-primary {
+        background: var(--primary);
+        color: #fff;
+    }
+
+    .btn-primary:hover { background: var(--primary-dark); }
+
+    .btn-secondary {
+        background: transparent;
+        color: var(--muted);
+        border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+        background: var(--bg);
+        color: var(--text);
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <a th:href="@{/admin/devices}" class="back-link">← Вернуться к списку</a>
+
+  <h2 th:text="${device.id != null ? 'Редактировать устройство' : 'Добавить устройство'}">Форма</h2>
+  <p class="subtitle">Заполните данные сетевого устройства.</p>
+
+  <div th:if="${error}" class="alert alert-danger" role="alert">
+    <p th:text="${error}"></p>
+  </div>
+
+  <div class="location-form-wrapper">
+    <form th:action="@{/admin/devices/save}" method="post">
+
+      <input type="hidden" name="id" th:if="${device.id != null}" th:value="${device.id}">
+
+      <div class="form-group">
+        <label for="deviceType">Тип устройства</label>
+        <select id="deviceType" name="deviceType">
+          <option value="Маршрутизатор" th:selected="${device.deviceType == 'Маршрутизатор'}">Маршрутизатор</option>
+          <option value="Коммутатор" th:selected="${device.deviceType == 'Коммутатор'}">Коммутатор</option>
+          <option value="Межсетевой экран" th:selected="${device.deviceType == 'Межсетевой экран'}">Межсетевой экран</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="model">Модель</label>
+        <input type="text" id="model" name="model" th:value="${device.model}"
+               placeholder="Например: TP-Link Archer C6" required>
+      </div>
+
+      <div class="form-group">
+        <label for="serialNumber">Серийный номер</label>
+        <input type="text" id="serialNumber" name="serialNumber" th:value="${device.serialNumber}"
+               placeholder="Например: SN-001234" required>
+      </div>
+
+      <div class="form-group">
+        <label for="ipAddress">IP-адрес</label>
+        <input type="text" id="ipAddress" name="ipAddress" th:value="${device.ipAddress}"
+               placeholder="Например: 192.168.1.10">
+      </div>
+
+      <div class="form-group">
+        <label for="macAddress">MAC-адрес</label>
+        <input type="text" id="macAddress" name="macAddress" th:value="${device.macAddress}"
+               placeholder="Например: AA:BB:CC:DD:EE:FF">
+      </div>
+
+      <div class="form-group">
+        <label for="status">Статус</label>
+        <select id="status" name="status">
+          <option value="Активен" th:selected="${device.status == 'Активен'}">Активен</option>
+          <option value="Неактивен" th:selected="${device.status == 'Неактивен'}">Неактивен</option>
+          <option value="Обслуживание" th:selected="${device.status == 'Обслуживание'}">Обслуживание</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="locationId">Расположение (Локация)</label>
+        <select id="locationId" name="location.id">
+          <option value="">-- Не выбрано --</option>
+          <option th:each="loc : ${locations}"
+                  th:value="${loc.id}"
+                  th:text="${loc.name}"
+                  th:selected="${device.location != null && device.location.id == loc.id}">
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="notes">Заметки</label>
+        <input type="text" id="notes" name="notes" th:value="${device.notes}"
+               placeholder="Дополнительная информация">
+      </div>
+
+      <div class="actions">
+        <button type="submit" class="btn-action-primary">Сохранить</button>
+        <a th:href="@{/admin/devices}" class="btn-action-secondary">Отмена</a>
+      </div>
+    </form>
+  </div>
+</div>
+</body>
+</html>
